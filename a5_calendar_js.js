@@ -1,7 +1,5 @@
-
-
-        // 0. Kurs-Details anzeigen: 
-        document.querySelectorAll('.more-button').forEach(button => {
+// 0. Kurs-Details anzeigen: 
+        parent.document.querySelectorAll('.more-button').forEach(button => {
             button.addEventListener('click', () => {
                 const box = button.closest('.course-box');
 
@@ -22,9 +20,9 @@
         // 1. Filterfunktion für Kurse
 
         function filterCoursesByLanguage() {
-            const deutschCheckbox = document.getElementById('deutsch-checkbox');
-            const englishCheckbox = document.getElementById('english-checkbox');
-            const courseBoxes = document.querySelectorAll('.course-box');
+            const deutschCheckbox = parent.document.getElementById('deutsch-checkbox');
+            const englishCheckbox = parent.document.getElementById('english-checkbox');
+            const courseBoxes = parent.document.querySelectorAll('.course-box');
 
             courseBoxes.forEach(box => {
                 const isDeutsch = box.classList.contains('deutsch');
@@ -40,8 +38,8 @@
             });
         }
 
-        document.getElementById('deutsch-checkbox').addEventListener('change', filterCoursesByLanguage);
-        document.getElementById('english-checkbox').addEventListener('change', filterCoursesByLanguage);
+        parent.document.getElementById('deutsch-checkbox').addEventListener('change', filterCoursesByLanguage);
+        parent.document.getElementById('english-checkbox').addEventListener('change', filterCoursesByLanguage);
 
         filterCoursesByLanguage();
 
@@ -130,7 +128,7 @@
 
 
         function isLectureSelected(lecture) {
-            const checkbox = document.querySelector(`input[type="checkbox"][value="${lecture}"]`);
+            const checkbox = parent.document.querySelector(`input[type="checkbox"][value="${lecture}"]`);
             return checkbox && checkbox.checked;
         }
 
@@ -143,14 +141,14 @@
         const daysInMonth = lastDay.getDate();
         const startingDay = firstDay.getDay();
 
-        const calendarBody = document.getElementById("calendar-body");
+        const calendarBody = parent.document.getElementById("calendar-body");
         if (!calendarBody) {
             console.error("calendar-body%20element%20not%20found");
             return;
         }
         calendarBody.innerHTML = "";
 
-        const monthYearElement = document.getElementById("month-year");
+        const monthYearElement = parent.document.getElementById("month-year");
         if (monthYearElement) {
             monthYearElement.textContent = `${firstDay.toLocaleString('default', { month: 'long' })} ${year}`;
         } else {
@@ -159,15 +157,15 @@
 
         let date = 1;
         for (let i = 0; i < 6; i++) {
-            const row = document.createElement("tr");
+            const row = parent.document.createElement("tr");
             for (let j = 0; j < 7; j++) {
                 if (i === 0 && j < startingDay) {
-                    const cell = document.createElement("td");
+                    const cell = parent.document.createElement("td");
                     row.appendChild(cell);
                 } else if (date > daysInMonth) {
                     break;
                 } else {
-                    const cell = document.createElement("td");
+                    const cell = parent.document.createElement("td");
                     cell.textContent = date;
 
                     const currentDateString = `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
@@ -179,7 +177,7 @@
                                 if (lectureDate.start.startsWith(currentDateString)) {
                                     const startTime = lectureDate.start.split(' ')[1];
                                     const endTime = lectureDate.end.split(' ')[1];
-                                    const lectureElement = document.createElement("div");
+                                    const lectureElement = parent.document.createElement("div");
                                     lectureElement.textContent = `${lecture} ${startTime} - ${endTime}`;
                                     lectureElement.classList.add("lecture");
                                     cell.appendChild(lectureElement);
@@ -230,7 +228,7 @@
                 }
             }
 
-            const warningElement = document.getElementById("warning_overlap");
+            const warningElement = parent.document.getElementById("warning_overlap");
             if (overlaps.length > 0) {
                 const conflictMessages = overlaps.map(([l1, l2, d1, d2]) => 
                     `${l1} und ${l2} am ${new Date(d1.start).toLocaleDateString()}`
@@ -244,7 +242,7 @@
             return overlaps;
         }
 
-        document.querySelectorAll('#course-filter input[type="checkbox"]').forEach(checkbox => {
+        parent.document.querySelectorAll('#course-filter input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', () => {
                 generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
                 checkOverlaps();
@@ -253,8 +251,8 @@
 
 
         // Event Listeners für die Navigationsbuttons
-        const prevMonthButton = document.getElementById("prev-month");
-        const nextMonthButton = document.getElementById("next-month");
+        const prevMonthButton = parent.document.getElementById("prev-month");
+        const nextMonthButton = parent.document.getElementById("next-month");
 
         if (prevMonthButton) {
             prevMonthButton.addEventListener("click", () => {
@@ -280,6 +278,3 @@
 
 
         checkOverlaps();
-
-
-    
